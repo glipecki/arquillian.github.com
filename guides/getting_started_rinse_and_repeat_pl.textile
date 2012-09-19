@@ -1,6 +1,6 @@
 ---
 layout: guide
-title: "Szybki start: Rinse and Repeat"
+title: "Szybki start: Zróbmy to raz jeszcze"
 authors: [mojavelinux]
 translators: [glipecki]
 description: Część druga seri "Szybki start". Potwierdź swoje postępy w bardziej skomplikowanych przykładach i naucz się wykorzystywać zdalne kontenery.
@@ -14,15 +14,15 @@ To wprowadzenie jest kontynuacją serii "Szybki start":/guides/getting_started. 
 * Wykonywać testy Arquilliana wykorzytując zdalny kontener
 * Debugować testy Arquilliana wykorzytując zdalny kontener
 
-W trakcie przewodnika, będziesz dodawał nowe profile do swojego skryptu budowania Maven. Dzięki nim będziesz mógł sterować, kiedy Arquillian ma wykonać testy korzystając ze zdalnego kontenera (np., serwera aplikacji). To znaczy, że będziesz testował _realne środowisko_. Żadnych mocków. Żadnych środowisk testowych! A ponieważ najcięższą pracę wykonałeś w pierwszym wprowadzeniu, nie powinno to zająć zbyt wiele czasu.
+Korzystając z tego przewodnika dodasz nowy profil budowania swojej aplikacji w Mavenie. Dzięki niemu będziesz mógł wskazać Arquillianowi kiedy uruchomić testy na zdalnym kontenerze (np., serwera aplikacji). To znaczy, że będziesz testował _realne środowisko_. Żadnych mocków. Żadnych środowisk testowych! A ponieważ najcięższą pracę wykonałeś w pierwszym wprowadzeniu, nie powinno to zająć zbyt wiele czasu.
 
 h3. Założenia
 
-Wprowadzenie zakłada, że skonfigurowałeś już swój projekt do pracy z Arquillianem oraz napisałeś i wykonałeś przynajmniej jeden test. Jeśli jeszcze tego nie zrobiłeś, wróć proszę do przewodnika "Szybki start":/guides/getting_started i zapoznaj się z podstawami Arquilliana. Będziesz również potrzebował oprogramowanie opisywane w tym przeowdniku.
+Wprowadzenie zakłada, że skonfigurowałeś już swój projekt do pracy z Arquillianem oraz napisałeś i wykonałeś przynajmniej jeden test. Jeśli jeszcze tego nie zrobiłeś, wróć proszę do przewodnika "Szybki start":/guides/getting_started i zapoznaj się z podstawami Arquilliana.
 
 h3. Przygotuj komponenty
 
-Będziesz przygotowywał bardzo prosty backend dla aplikacji sklepu. Wykorzystamy komponent koszyka zakupów do przechowywania produktów wybranych przez odwiedzających i komponent repozytorium do przechowywania i pobierania złożonych zamówień. Zaimplementujemy je korzystając z odpowiedni CID i EJB. Ponieważ korzystamy z Java EE 6 API możemy wykorzystać obie te technologie bez żadnych dodatkowych nakładów pracy. (Jeżeli potrzebujesz, dowiedz się z przewodnika "Szybki start":/guides/getting_started jak dołączyć wspomniane API do swojego projektu).
+Będziesz przygotowywał bardzo prosty backend dla aplikacji sklepu. Wykorzystamy komponent koszyka zakupów do przechowywania produktów wybranych przez odwiedzających i komponent repozytorium do przechowywania i pobierania złożonych zamówień. Zaimplementujemy je korzystając z odpowiednio CID i EJB. Ponieważ korzystamy z Java EE 6 API możemy wykorzystać obie te technologie bez żadnych dodatkowych nakładów pracy. (Jeżeli potrzebujesz, dowiedz się z przewodnika "Szybki start":/guides/getting_started jak dołączyć wspomniane API do swojego projektu).
 
 Zacznijmy od komponentu przenoszącego zamówienia do i z magazynu danych. Trzymając się wzorców projektowania oprogramowania, oraz w celu ułatwienia testów, zaczniemy od zdefiniowania interfejsu. W swoim IDE utwórz nowy lokalny interfejs EJB @OrderRepository@ i wypełnij go podanym kodem:
 
@@ -146,7 +146,7 @@ Teraz jesteśmy gotowi do pisania testów Arquilliana.
 
 h3. Napisz testy
 
-Napiszemy test, który będzie symulował dodanie produktów do instancji klasy @Basket@, wykorzystanie jej do złożenia zamówienia. Zwaliduje czy zamówienie zostało przetworzone i zapisze je w pojedynczej instancji klasy @OrderRepository@.
+Napiszemy test, który będzie symulował dodanie produktów do instancji klasy @Basket@ i wykorzystanie jej do złożenia zamówienia. Zwaliduje czy zamówienie zostało przetworzone i zapisze je w instancji klasy @OrderRepository@.
 
 p(info). %Oczywiście będziemy testować tylko implementację działającą w pamięci. Nauczysz się jak pisać testy wykorzystujące bazę danych w przewodniku "Testowanie Java Persistence":/guides/testing_java_persistence. Możesz wtedy powrócić do tego przewodnika i przygotować implementację opartą o JPA.%
 
@@ -163,7 +163,7 @@ import org.junit.runner.RunWith;
 public class BasketTest {
 }
 
-p. W następnym kroku zdefinujemy archiwum testowe, zawierające koszyk, interfejs repozytorium zamówień oraz jego implementację jako singletona. Dodatkowo potrzebujemy pustego plik beans.xml w celu uaktywnienia CDI (EJB jest aktywowane automatycznie). Zauważ, że mamy pełną kontrolę nad classpathem aplikacji, poprzez konkretne wskazanie co ma trafić do archiwum.
+p. W następnym kroku zdefinujemy archiwum testowe, zawierające koszyk, interfejs repozytorium zamówień oraz jego implementację jako singletona. Dodatkowo potrzebujemy pustego plik beans.xml w celu uaktywnienia CDI (EJB jest aktywowane automatycznie). Zauważ, że poprzez konkretne wskazanie co ma trafić do archiwum, mamy pełną kontrolę nad classpathem aplikacji
 
 div(filename). src/test/java/org/arquillian/example/BasketTest.java
 
@@ -249,17 +249,17 @@ p. Napisaliśmy nasz test. Pora go przygować i uruchomić.
 
 h3. Dodaj zdalne kontenery
 
-Napisany przez nas test wykorzystuje zarówno CDI, jak i EJB. Ta kombinacja przesuwa granicę tego, co może nam dotarczyć osadzone środowisko testowe (takie jak Weld Embedded czy OpenEJB Embedded). Dużo prościej jest wykorzystać zgodny kontener Java EE. Dodatkowo, zwiększymy wiarygodność naszych przypadków testowych. Dlatego, póki co zapomnimy o osadzanych kontenerach.
+Napisany przez nas test wykorzystuje zarówno CDI, jak i EJB. Ta kombinacja przesuwa granicę tego, co może nam dotarczyć osadzone środowisko testowe (takie jak Weld Embedded czy OpenEJB Embedded). Dużo prościej jest wykorzystać zgodny kontener Java EE. Dodatkowo zwiększymy wiarygodność naszych przypadków testowych. Dlatego, póki co, zapomnimy o osadzanych kontenerach.
 
 W poprzednim wprowadzeniu wykorzystywaliśmy zarówno osadzane, jak i zarządzane kontenery. W obu przypadkach Arquillian musi uruchomić kontener przed rozpoczęciem zestawu testów oraz zatrzymać go po ich zakończeniu. Co jeżeli kontener jest już uruchomiony (bądź zamierzasz taki uruchomić na potrzeby testów)? To oczywiście najszybsza metoda uruchamiania testów. Nawet jeżeli kontener uruchamia się błyskawicznie, nigdy testy nie wykonają się szybciej niż gdyby nie musiały nic uruchamiać.
 
-Zdalny kontener dostarczna idealne środowisko programistyczne dla testów integracyjnych. Jak przekonasz się później, umożliwia również bardzo łatwe debugowanie testów. Ponieważ nie ma żadnych odniesień do kontenera w testach, nic nie stoi na przeszkodzie żeby wykorzystać zdalny w trakcie programowania a zarządzany w przypadku środowiska ciągłej integracji. W zasadzie, zarządzane kontenery najlepiej się sprawdzają w przypadku środowisk ciągłe integracji.
+Zdalny kontener dostarczna idealne środowisko programistyczne dla testów integracyjnych. Jak przekonasz się później, umożliwia również bardzo łatwe debugowanie testów. Ponieważ nie ma żadnych odniesień do kontenera w testach, nic nie stoi na przeszkodzie żeby wykorzystać zdalny w trakcie programowania, a zarządzany w przypadku środowiska ciągłej integracji. W zasadzie, zarządzane kontenery najlepiej się sprawdzają w przypadku środowisk ciągłe integracji.
 
 p(warning). %Określenie _zdalny_ odnośi się do kontener w osobnym procesie, nie zawsze na zdalnej maszynie. Chociaż oba scenariusze są wspierane%
 
 Zdalny kontener to samodzileny proces do którego Arquillian deployuje wykorzystując jego klienckie API. W związku z tym, będziesz potrzebował:
 
-* API modelu programowania (muszą być spakowane jedynie gdy konener ich nie zapewnia)
+* API modelu programowania (muszą być spakowane jedynie gdy kontener ich nie zapewnia)
 * Adapter Arquilliana dla zdalnych kontenerów
 * API aplikacji klienckiej kontenera, w celu komunikacji z jego procesem
 
@@ -329,7 +329,7 @@ bc(prettify).. <!-- clip -->
 
 p(info). %Adapter połączeń dla GlassFisha wykorzystuje Jerseya do komunikacji z kontenerem poprzez JAX-RS (REST), przez co został dodany do zależności. API Welda jest potrzebne do unmarshallingu wyjątków zwracanych przez testy w kontenerze.%
 
-Jak już dodaesz nowe profile do swojego pliku pom.xml, kliknij prawym przyciskiem na projekcie w Eclipse i wybierze Maven > Update Project Configuration. Jeżeli na projekcie zostały oznaczone błędy kompilacji musisz aktywować jeden z przygotowanych profili.
+Jak już dodasz nowe profile do swojego pliku pom.xml, kliknij prawym przyciskiem na projekcie w Eclipse i wybierze Maven > Update Project Configuration. Jeżeli na projekcie zostały oznaczone błędy kompilacji musisz aktywować jeden z przygotowanych profili.
 
 Pamiętaj, że masz dwie możliwości wyboru profili Mavenowych w Eclipse (zakładając że wykorzystuje "Maven Integration for Eclipse":http://www.eclipse.org/m2e):
 
@@ -346,8 +346,7 @@ Najprostszym sposobem na zarządzanie zdalnymi kontenerami jest skonfigurowanie 
 
 Pokażemy jak dodać serwer (konener) w Eclipse. Proces dla innych IDE jest podobny. Będziesz potrzebował zarówno "JBoss Tools":http://jboss.org/tools jak i "GlassFish Java EE Application Server Plugin":http://marketplace.eclipse.org/content/glassfish-java-ee-application-server-plugin-eclipse/metrics, oba dostępne w Eclipse MarketPlace. 
 
-W Eclipse, wybierz Window > Show View > Servers z paska menu. Gdy widok już się otworzy, kliknij prawym przyciskiem i wybierz New > Server. Utwórz server dla JBoss AS 7.
-1:
+W Eclipse, wybierz Window > Show View > Servers z paska menu. Gdy widok już się otworzy, kliknij prawym przyciskiem i wybierz New > Server. Utwórz server dla JBoss AS 7.1:
 
 !/images/guides/arquillian_tutorial_2_new_jbossas_server.png!
 
@@ -363,31 +362,31 @@ Po zakończeniu kreatorów dodawania kontenerów, powinieneś zobaczyć je na li
 
 Żeby wystartować serwer, wybierz go z listy (jak na obrazku powyżej) i kliknij zieloną ikonę odtwarzania na pasku narzędzi.
 
-p(info). %Arquillian zakłąda, że kontenery pracują na swoich domyślnych portach. Jeżeli je zmieniłeś musisz uaktualnić plik arquillian.xml i podać odpowiednie dla każdego kontenera. Zapoznaj się z "przewodnikiem referencyjnym":https://docs.jboss.org/author/display/ARQ/Container+adapters żeby poznać szczegóły%
+p(info). %Arquillian zakłada, że kontenery pracują na swoich domyślnych portach. Jeżeli je zmieniłeś musisz uaktualnić plik arquillian.xml i podać odpowiednie porty dla każdego kontenera. Zapoznaj się z "przewodnikiem referencyjnym":https://docs.jboss.org/author/display/ARQ/Container+adapters żeby poznać szczegóły%
 
 Teraz, gdy Twój kontener jest gotowy i uruchomiony, przyszła pora na uruchomienie testów.
 
 h3. Uruchom testy Arquilliana
 
-W celu uruchomienia testów Arquilliana, musisz wykonać kroki:
+W celu uruchomienia testów Arquilliana, musisz wykonać następujące kroki:
 
 # Uruchom zdalny kontener
-# Uaktywnik profile Mavena odpowiadający uruchomionemu kontenerowi
+# Uaktywnij profil Mavena odpowiadający uruchomionemu kontenerowi
 # Uruchom testy
 
 Zacznijmy od JBoss AS.
 
 h4. Uruchom testy na JBoss AS
 
-Zacznij od uruchomienia kontenera JBoss AS. Otwórz widok Servers, wybierz JBOss AS i kliknij zielony przycisk odtwarzania. Poczekaj aż serwer się uruchomi (nie powinno to zająć zbyt wiele czasu).
+Zacznij od uruchomienia kontenera JBoss AS. Otwórz widok Servers, wybierz JBoss AS i kliknij zielony przycisk odtwarzania. Poczekaj aż serwer się uruchomi (nie powinno to zająć zbyt wiele czasu).
 
-Gdy kontener jest już uruchomiony, uaktywnij profil @arquillian-jbossas-remote@ używając konfiguracji we właściwościach Magena lub JBoss Tools Maven Profile selector. Edytor profili poniżej pokazuje poprawne ustawienia.
+Gdy kontener jest już uruchomiony, uaktywnij profil @arquillian-jbossas-remote@ używając konfiguracji we właściwościach Mavena lub JBoss Tools Maven Profile selector. Edytor profili poniżej pokazuje poprawne ustawienia.
 
 !/images/guides/arquillian_tutorial_2_jbossas_profile_selection.png!
 
 Ostatecznie, kliknij prawym przyciskiem na klasę @BasketTest@ i wybierz Run As > JUnit Test. Powinieneś dostrzec dużą aktywość w oknie Console i później... *(greenbar)zielony pasek* w oknie testów JUnita!
 
-Testy możesz równierz uruchomić z lini poleceń, używając Mavena:
+Testy możesz równierz uruchomić z linii poleceń, używając Mavena:
 
 bc(command). $ mvn test -Parquillian-jbossas-remote -Dtest=BasketTest
 
@@ -404,7 +403,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.844 sec
 
 p(info). %Możesz równierz wstrzyknąć bean EJB @OrderRepository@ używająć  @@Inject@ zamiast @@EJB@. Spróbuj sam!%
 
-Jeżeli chcesz się upewnić, że singletoon faktycznie wykonuje swoje zadanie, śmiało usuń adnotację @@Singleton@ z klasy  @SingletonOrderRepository@ i zastąp ją adnotacją @@Stateful@. Powinieneś zobaczyć błąd asercji podczas uruchamiania testów. Cofnij wprowadzone zmiany a pasek spowrotem stanie się zielony.
+Jeżeli chcesz się upewnić, że singleton faktycznie wykonuje swoje zadanie, śmiało usuń adnotację @@Singleton@ z klasy @SingletonOrderRepository@ i zastąp ją adnotacją @@Stateful@. Powinieneś zobaczyć błąd asercji podczas uruchamiania testów. Cofnij wprowadzone zmiany a pasek spowrotem stanie się zielony.
 
 Póki co zostawimy JBoss AS, więc skorzystaj widoku Servers i zatrzymaj go. Teraz uruchomimy dokładnie ten sam test na serwerze GlassFish 3.1.2.
 
@@ -418,7 +417,7 @@ Gdy wszystko już jest gotowe, aktywuj profil Mavena @arquillian-glassfish-remot
 
 Ostatecznie, kliknij prawym przyciskiem na klasę @BasketTest@ i wybierz Run As > JUnit Test. Powinieneś dostrzec dużą aktywość w oknie Console i później... *(greenbar)zielony pasek* w oknie testów JUnita!
 
-Testy możesz równierz uruchomić z lini poleceń, używając Mavena:
+Testy możesz równierz uruchomić z linii poleceń, używając Mavena:
 
 bc(command). $ mvn test -Parquillian-glassfish-remote -Dtest=BasketTest
 
@@ -435,9 +434,9 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.549 sec
 
 Nadal powinieneś mieć możliwość uruchomienia test w osadzonym środowisku Embedded GlassFish używając profilu z poprzedniego przewodnika. Sprawdź to. Powinieneś również móc bez przeszkód debugować swój test. 
 
-Oczywiście debugowanie testów w osadzonym kontenerze jest proste, skoro oba działają w tym samym procesie co środowisko uruchomieniowe testów. Ale co ze zdalnymi kontenerami?
+Oczywiście debugowanie testów w osadzonym kontenerze jest proste, skoro oba działają w tym samym procesie co środowisko uruchomieniowe. Ale co ze zdalnymi kontenerami?
 
-h3. Debaguj testy Arquilliana
+h3. Debuguj testy Arquilliana
 
 Debugowanie testów w zdalnym kontenerze? Wydaje się być trudne. Niespodzianka! Wcale takie nie jest. Jedyne co musisz zrobić, to zmodyfikować jeden z kroków i dodać jeden dodatkowy:
 
@@ -446,14 +445,14 @@ Debugowanie testów w zdalnym kontenerze? Wydaje się być trudne. Niespodzianka
 # *Ustaw breakpoint*
 # Uruchom test
 
-W widoku Servers, powinieneś widzieć ikonę robaka zarz obok zielonej ikony odtwarzania. Kliknij ją aby uruchomić serwer w trybie debugowania. Eclipse automatycznie podłączy swój debuger do kontenera.
+W widoku Servers, powinieneś widzieć ikonę robaka zaraz obok zielonej ikony odtwarzania. Kliknij ją aby uruchomić serwer w trybie debugowania. Eclipse automatycznie podłączy swój debuger do kontenera.
 
 Ustaw breakpoint w metodzie @addOrder()@ w beanie @SingletonOrderRepository@.
 Teraz uruchom test ponownie klikając prawym przyciskiem i wybierając Run As > JUnit Test.
 
 p(warning). %Nie musisz wybierać Debug As > JUnit Test. Kod testu jest uruchamiany wewnątrz konenera, który już jest w trybie debugowania.%
 
-Test powinien zatrzymać się na breakpoincie. Jeżeli korzystać z JBoss AS możesz otworzyć konsolę administraacyjną i potwierdzić że aplikacja jest faktycznie osadzona na serwerze.
+Test powinien zatrzymać się na breakpoincie. Jeżeli korzystasz z JBoss AS możesz otworzyć konsolę administraacyjną i potwierdzić, że aplikacja jest faktycznie osadzona na serwerze.
 
 Jeżeli przyjrzysz się sekcji stack trace w widoku Eclipse Debug, zauważysz że serwer jest sterowany przez zdalny protokół (albo JMX albo Servlet) i JUnit został uruchomiony ponownie wewnątrz kontenera.
 
@@ -467,7 +466,7 @@ h4. Otwieranie klas zewnętrznych bibliotek
 
 Jeżeli zamierzasz otwierać klasy z zewnętrznych bibliotek (kod spoza Twojej aplikacji), musisz je połączyć z ich kodami źródłowymi.
 
-p(info). %Można pominąć tę konfigurację gdy korzystasz z Mavena do zarządzania projektem oraz biblioteka dostępna jest w repozytoriach Mavena. Gdy natrafisz na breakpoint w bibliotece jeszcze nie ściągniętej lokalnie, poczekaj chiwlę aż zostanie ściągnięta i ostatecznie kod źródłowy zostanie wyświetlony. Jeżeli tak się nie stanie, to najprawdopodobniej kod nie jest dostępny w repozytorium i musisz kontynuować czytanie.%
+p(info). %Można pominąć tę konfigurację gdy korzystasz z Mavena do zarządzania projektem oraz biblioteka jest dostępna w repozytoriach Mavena. Gdy natrafisz na breakpoint w jeszcze nie ściągniętej bibliotece, poczekaj chwilę aż zostanie ściągnięta i kod źródłowy zostanie wyświetlony. Jeżeli tak się nie stanie, to najprawdopodobniej kod nie jest dostępny w repozytorium i musisz kontynuować czytanie.%
 
 Oto kroki które musisz wykonać żeby podpiąć kody źródłowe biblioteki w konfiguracji debugowania:
 
@@ -479,9 +478,9 @@ Oto kroki które musisz wykonać żeby podpiąć kody źródłowe biblioteki w k
 ## Wybierz Java Project
 ## Zaznacz projekt zawierający klasę którą chcesz debugować
 ## Kliknij OK w oknie Project Selection
-# Jeżeli kod źródłowe jest w bibliotece:
+# Jeżeli kody źródłowe są w bibliotece:
 ## Wybierz External Archive
-## Przejdź do archiwum zawierającego kod źródłowe (które oczywiście musisz sam ściągnąć)
+## Przejdź do archiwum zawierającego kody źródłowe (które oczywiście musisz sam ściągnąć)
 # Kliknij Close w oknie Debug Configurations
 
 Będziesz musiał powtórzyć te kroki dla każdej klasy która chcesz debugować, jednak musisz zrobić to tylko raz (raz ustawiona konfiguracja debugowania jest stała).
@@ -490,7 +489,7 @@ h3. Debuguj zarządany serwer
 
 Czy jest możliwe debugowanie gdy używasz zarządanego kontenera? Pewnie, że tak! Po prostu potrzebujemy trochę dodatkowej konfiguracji.
 
-Ponieważ to Arquillian odpowiada za uruchomienie i zatrzymanie kontenera, musimy mu powiedzieć że ma go uruchamiać w trybie debugowania. Jest parametr uruchomieniowy JVM, który Arquillian musi przekazać do serwera. Zapiszemy go w pliku konfiguracji kontenera.
+Ponieważ to Arquillian odpowiada za uruchomienie i zatrzymanie kontenera, musimy mu powiedzieć że ma go uruchamiać w trybie debugowania. To prosty parametr uruchomieniowy JVM, który Arquillian musi przekazać do serwera. Zapiszemy go w pliku konfiguracji kontenera.
 
 Jednak zanim to zrobimy, musimy zastanowić się w jaki sposób będziemy łączyć się z debuggerem. O ile nie jesteś mistrzem prędkości w obsłudze myszki, będziesz miał problemy z podłączeniem debuggera zanim Arquillian wystartuje testy. Na szczęscie, możemy wskazać JVM żeby oczekiwał na połączenie do debuggera przed wykonaniem aplikacji, w tym przypadku JBoss AS. To da nam czas na kliknięcie przycisku debugowania w IDE.
 
@@ -554,6 +553,6 @@ bc(prettify).. <arquillian xmlns="http://jboss.org/schema/arquillian"
 
 p. Żeby wyeksportować pojedynczy test skorzystaj z parametru VM @arquillian.deploymentExportPath@. Na nprzykład @-Darquillian.deploymentExportPath=target/deployments/@.
 
-Teraz uruchom test i sprawdź zawartość katalogu target/deployments. Powinieneś zobaczyć plik z roszerzeniem .jar, .war lub .ear (Arqiullian mógł spakować Twoje archiwum w innym archiwum w celu dodania do niego trochę magi). Możesz zbadać zawartość tego pliku używając oprogramowania do zarządania archiwami. Archiwum powinno zawiera odpowiednie informacje mogące być przydatne się przy analizowaniu wyjątków typu 'class not found', czy 'resource missing'.
+Teraz uruchom test i sprawdź zawartość katalogu target/deployments. Powinieneś zobaczyć plik z roszerzeniem .jar, .war lub .ear (Arqiullian mógł spakować Twoje archiwum w innym archiwum w celu dodania do niego trochę magii). Możesz zbadać zawartość tego pliku używając oprogramowania do zarządania archiwami. Archiwum powinno zawierać odpowiednie informacje mogące być przydatne przy analizowaniu wyjątków typu 'class not found', czy 'resource missing'.
 
 Na ten moment, nauczyłeś się jak uruchomić i debugować testy w osadzonym, zdalnym i zarządanym kontenerze. Już nic Cię nie wstrzymuje. Zacznij pisać _prawdziwe testy_!
