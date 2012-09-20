@@ -143,7 +143,7 @@ bc(command). $ arquillian create-test --class org.arquillian.example.MySimpleBea
 bc(output). Picked up type <JavaResource>: org.arquillian.example.MySimpleBeanTest
 Wrote /home/ike/projects/arquillian-demo/src/test/java/org/arquillian/example/MySimpleBeanTest.java
 
-Nowa klasa testowa zawierająca deskryptor osadzania i metodę testową została dodana do projektu.
+Nowa klasa testowa zawierająca deskryptor wdrożenia i metodę testową została dodana do projektu.
 
 div(filename). src/test/java/org/arquillian/example/MySimpleBeanTest.java
 
@@ -283,7 +283,7 @@ bc(command). $ arquillian create-test --class org.arquillian.example.dao.Languag
 bc(output). Picked up type <JavaResource>: org.arquillian.example.dao.LanguageDaoTest
 Wrote /home/ike/projects/arquillian-demo/src/test/java/org/arquillian/example/dao/LanguageDaoTest.java
 
-Ponownie utworzyliśmy nowy test, jednak tym razem dodatkowo wygenerowaliśmy persistence.xml w deskryptorze osadzania. Tak wygląda wygenerowany test:
+Ponownie utworzyliśmy nowy test, jednak tym razem dodatkowo wygenerowaliśmy persistence.xml w deskryptorze wdrożenia. Tak wygląda wygenerowany test:
 
 div(filename). src/test/java/org/arquillian/example/dao/LanguageDaoTest.java
 
@@ -319,7 +319,7 @@ public class LanguageDaoTest {
     }
 }
 
-p. Otwórz test w swoim IDE i dodaj encję @Language@ do deskryptora osadzania. Dodaj odpowiedni import i zmień linię:
+p. Otwórz test w swoim IDE i dodaj encję @Language@ do deskryptora wdrożenia. Dodaj odpowiedni import i zmień linię:
 
 bc(prettify). .addClass(LanguageDao.class)
 
@@ -354,15 +354,15 @@ bc(command). $ build test --profile GLASSFISH_REMOTE_3_1_(REST)
 
 p(warning). %W celu uruchomienia testów na samodzielnej instalacji GlassFish potrzeba trochę dodatkowej konfiguracji. Potraktuje to jak zadanie domowe ~:)%
 
-h3. Wyeksportuj deskryptor osadzania
+h3. Wyeksportuj deskryptor wdrożenia
 
-Dla celów debugowania wartościowe może się okazać eksportowanie deskryptora osadzania do pliku. Możesz to zrobić korzystając z Forge:
+Dla celów debugowania wartościowe może się okazać eksportowanie deskryptora wdrożenia do pliku. Możesz to zrobić korzystając z Forge:
 
 Przejdź do testu Arquilliana:
 
 bc(command). $ cd src/test/java/org/arquillian/example/MySimpleBeanTest.java
 
-Wyeksportuj deskryptor osadzania:
+Wyeksportuj deskryptor wdrożenia:
 
 bc(command). $ arquillian export
 
